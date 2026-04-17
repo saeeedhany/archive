@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Speech Recognition - Saeed Hany</title>
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/all.min.css" />
+        <link rel="stylesheet" href="../css/blog-post.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <nav>
+                <a href="../index.htm" class="logo">Saeed Hany</a>
+                <ul class="nav-links">
+                    <li class="pages"><a href="../index.htm">About Me</a></li>
+                    <li class="pages"><a href="../projects.htm">Projects</a></li>
+                    <li class="pages"><a href="../blog.htm" class="active">Blog</a></li>
+                    <li><a href="../resume.pdf" target="_blank" class="external-link">Resume <i class="fas fa-external-link-alt"></i></a></li>
+                    <li class="social-icons">
+                        <a href="https://github.com/saeeedhany" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://discord.com/users/1098257642356482099" target="_blank" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                        <a href="https://www.youtube.com/@Saeeedhany" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://x.com/S8eed_" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    </li>
+                    <li class="left">
+                        <button class="theme-toggle" aria-label="Toggle theme">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                        <button class="mobile-menu-btn" aria-label="Toggle menu">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Mobile Sidebar -->
+        <div class="mobile-sidebar">
+            <h3>On this page</h3>
+            <ul class="sidebar-nav" id="toc-mobile"></ul>
+            <ul class="nav-mobile-links">
+                <li class="pages"><a href="../index.htm">About Me</a></li>
+                <li class="pages"><a href="../projects.htm">Projects</a></li>
+                <li class="pages"><a href="../blog.htm">Blog</a></li>
+                <li class="pages"><a href="../resume.pdf" target="_blank" class="external-link">Resume <i class="fas fa-external-link-alt"></i></a></li>
+                <li class="social-mobile-icons">
+                    <a href="https://github.com/saeeedhany" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://discord.com/users/1098257642356482099" target="_blank" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                    <a href="https://www.youtube.com/@Saeeedhany" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://x.com/S8eed_" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="overlay"></div>
+
+        <!-- Post Container -->
+        <div class="post-container">
+            <main class="post-main">
+
+                <a href="../blog.htm" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Blog
+                </a>
+
+                <div class="post-header">
+                    <h1>Speech Recognition</h1>
+                    <div class="post-meta">
+                        <span class="post-date">Coming soon</span>
+                        <div class="post-tags">
+                            <span class="tag">SEO</span>
+                            <span class="tag">Web</span>
+                            <span class="tag">Content Writing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WIP Banner -->
+                <!-- <div class="wip-banner"> -->
+                <!--     <div class="wip-icon"><i class="fa-solid fa-pen"></i></div> -->
+                <!--     <div class="wip-text"> -->
+                <!--         <h4>This post is still being written</h4> -->
+                <!--         <p> -->
+                <!--             I'm working on this one. Come back later, or if you're curious about the topic, -->
+                <!--             feel free to reach out on <a href="https://x.com/S8eed_" target="_blank">Twitter</a>. -->
+                <!--         </p> -->
+                <!--     </div> -->
+                <!-- </div> -->
+
+                <div class="post-content" id="post-content"></div>
+
+            </main>
+
+            <aside class="post-sidebar sidebar">
+                <h3>On this page</h3>
+                <ul class="sidebar-nav" id="toc"></ul>
+            </aside>
+        </div>
+
+        <script src="../js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script>
+            const markdown = `
+# The Complete SEO Product Description Guide for Content Writers
+### Everything from A to Z — Written for the Writer Who Wants to Get It Right
+
+---
+
+> **How to use this guide:** Read it top to bottom the first time. After that, use it as a reference before every product description you write. The final checklist at the end is your quality gate — don't publish without it.
+
+---
+
+## Table of Contents
+
+1. [What is SEO? (The Foundation)](#1-what-is-seo-the-foundation)
+2. [The Content Writer's Role in SEO](#2-the-content-writers-role-in-seo)
+3. [Keyword Research — What to Find Before You Write](#3-keyword-research--what-to-find-before-you-write)
+4. [Search Intent — Write for What People Actually Want](#4-search-intent--write-for-what-people-actually-want)
+5. [The Full Description Structure — A to Z](#5-the-full-description-structure--a-to-z)
+6. [Writing the Title Tag — The Most Important 60 Characters](#6-writing-the-title-tag--the-most-important-60-characters)
+7. [The Meta Description — Your Ad in Search Results](#7-the-meta-description--your-ad-in-search-results)
+8. [Body Copy Rules — Writing the Description Itself](#8-body-copy-rules--writing-the-description-itself)
+9. [Tone, Voice & Readability](#9-tone-voice--readability)
+10. [Common Mistakes to Avoid](#10-common-mistakes-to-avoid)
+11. [Final Pre-Publish Checklist](#11-final-pre-publish-checklist)
+
+---
+
+## 1. What is SEO? (The Foundation)
+
+**SEO — Search Engine Optimization** — is the practice of making your content easy for search engines like Google to find, understand, and rank. When someone types a query into a search engine, algorithms scan billions of pages to decide which results to show first. SEO is the art and science of making sure your page is one of them.
+
+For product pages specifically, SEO serves a dual purpose: it must satisfy both the **machine** (the algorithm) and the **human** (the buyer).
+
+### The Three Pillars of SEO
+
+| Pillar | What It Covers | Who Handles It |
+|---|---|---|
+| **On-Page SEO** | Keywords, structure, headings, body copy, meta data | ✅ The Content Writer |
+| **Technical SEO** | Page speed, mobile-friendliness, structured data, crawlability | Developers |
+| **Off-Page SEO** | Backlinks, domain authority, social signals | Marketing / PR |
+
+> **Your domain as a content writer is On-Page SEO.** That's where your impact is greatest, and that's what this entire guide is about.
+
+---
+
+## 2. The Content Writer's Role in SEO
+
+Your job is not just to describe a product. You are the **bridge** between what the customer is searching for and what the product actually offers. You translate features into benefits, weave in the right words people search for, and structure everything so it's effortless to read — for both humans and algorithms.
+
+### What You Are Responsible For
+
+- **Keyword integration** — researching and placing the right words people actually search for
+- **Unique copy** — never copying from manufacturers or other pages; every description must be original
+- **Structure** — using headings, bullet points, and sections that help scanners and crawlers alike
+- **Conversion copy** — writing that not only ranks but convinces the buyer to act
+- **Title tags and meta descriptions** — the snippets that appear in search results
+- **Image alt text** — descriptive text for all product images
+- **Internal linking** — pointing readers to related products or categories
+- **FAQ sections** — capturing long-tail searches and featured snippet opportunities
+- **Readability** — making sure the text is clear, concise, and appropriate for the audience
+
+### The Golden Rule
+
+> Write for the human buyer first. Structure it for the algorithm second. When both are done well, rankings and conversions follow naturally.
+
+---
+
+## 3. Keyword Research — What to Find Before You Write
+
+You cannot write a good SEO product description without doing keyword research first. **Keywords** are the exact words and phrases your target customers type into Google. Your job is to find them, understand them, and weave them naturally into your writing.
+
+### The Four Types of Keywords
+
+| Type | Example | Where to Use | Search Volume |
+|---|---|---|---|
+| **Primary keyword** | wireless noise-cancelling headphones | Title, H1, first 100 words, meta description | High |
+| **Secondary keywords** | over-ear headphones, bluetooth headphones | Subheadings, naturally in body text | Medium |
+| **Long-tail keywords** | best wireless headphones for working from home | FAQs, use case sections | Low — but highly converting |
+| **LSI keywords** | battery life, active noise cancellation, comfort | Throughout body copy naturally | Varies |
+
+> **LSI (Latent Semantic Indexing) keywords** are related terms that Google expects to see alongside your primary keyword. They prove to the algorithm that your content is genuinely about the topic, not just repeating one phrase.
+
+### Where to Find Keywords
+
+**Free tools:**
+- Google Search autocomplete (type your keyword and see what Google suggests)
+- Google "People Also Ask" boxes in search results
+- Google "Related Searches" at the bottom of results pages
+- Amazon search bar autocomplete (excellent for product research)
+- Competitor product pages (study what language they use)
+
+**Paid tools:**
+- Ahrefs
+- SEMrush
+- Ubersuggest (has a free tier)
+
+### Keyword Density Rule
+
+Aim for your primary keyword to appear roughly **1–2% of total words.**
+
+- In a 300-word description → 3–6 natural mentions
+- In a 500-word description → 5–10 natural mentions
+
+**Never force it.** If it sounds unnatural when you read it aloud, remove or rephrase it. Google penalizes keyword stuffing and it destroys readability.
+
+### How to Place Keywords Naturally
+
+- Work them into sentences that would be written that way anyway
+- Use synonyms and variations — "headphones", "headset", "earphones"
+- Place them in headings where they genuinely belong
+- Never start multiple bullet points with the same keyword
+
+---
+
+## 4. Search Intent — Write for What People Actually Want
+
+Understanding *why* someone searches is more important than matching the exact words they use. Google's algorithm is built to match pages to **intent**, not just keywords.
+
+### The Four Intent Types
+
+| Intent | What It Looks Like | What It Means for You |
+|---|---|---|
+| **Informational** | "What is noise cancellation?" | They want to learn. Not your buyer yet. Address briefly in FAQs only. |
+| **Navigational** | "Sony headphones official site" | They know where they're going. Ensure brand name is prominent. |
+| **Commercial** | "Best wireless headphones under $200" | They're comparing. Highlight your differentiators clearly. |
+| **Transactional** | "Buy noise-cancelling headphones online" | They're ready to purchase. **This is your primary audience.** Remove all friction. |
+
+### The Writer's Mindset
+
+> A transactional searcher typing "buy ergonomic office chair" doesn't want a history of ergonomics. They want to know: does this chair solve my back pain, what does it look like, how much is it, and can I trust this seller? Write for them.
+
+**Before you write a single word, ask yourself:**
+1. Who is typing this search?
+2. What stage of the buying journey are they at?
+3. What question are they trying to answer?
+4. What would make them click "Add to Cart" right now?
+
+---
+
+## 5. The Full Description Structure — A to Z
+
+A perfect SEO product description is not just a paragraph of text. It is a **layered structure** that serves different types of readers — the skimmer, the detailed researcher, and the search engine crawler — all at once.
+
+---
+
+### Step 1 — Page Title (H1)
+**Format:** Product Name + Primary Keyword
+
+- One H1 per page — never more
+- Contains the exact primary keyword
+- Concise, ideally under 70 characters
+- Appears at the very top of the page
+
+**Example:**
+```
+ProSound X900 Wireless Noise-Cancelling Headphones
+```
+
+---
+
+### Step 2 — Opening Hook (First 100 Words)
+**Format:** The problem + the promise
+
+This is the most critical section. The opening paragraph must:
+- Contain the **primary keyword** (Google weights early content heavily)
+- Speak directly to the buyer's pain point or desire
+- Hint at the product's key benefit
+- Pull the reader in — not bore them with generic product info
+
+**Weak opening:**
+> "The ProSound X900 is a wireless headphone manufactured by ProSound Audio Inc. It is available in black and white."
+
+**Strong opening:**
+> "Meetings that demand your full focus. Commutes that deserve peace. The ProSound X900 wireless noise-cancelling headphones block out the world so you can do your best work — wherever you are."
+
+---
+
+### Step 3 — Key Features Section (H2 + Bullet Points)
+**Format:** Features translated into benefits
+
+Use a clear H2 subheading such as:
+- "What Makes It Different"
+- "Key Features"
+- "Why You'll Love It"
+
+For each bullet point, follow the **Feature → Benefit → Proof** formula:
+
+```
+[Feature]: [Benefit] — [Supporting detail or proof]
+```
+
+**Example bullet points:**
+- **40-hour battery life** — power through a full work week without reaching for a charger
+- **Active Noise Cancellation (ANC)** — eliminates up to 98% of ambient noise so you can focus in any environment
+- **Foldable design** — collapses flat in seconds and fits into any bag or carry-on
+- **Multipoint Bluetooth 5.3** — connect to two devices simultaneously and switch between them without re-pairing
+
+> **Rule:** Minimum 4 bullet points. Maximum 8. Beyond 8, use a specifications table instead.
+
+---
+
+### Step 4 — Product Specifications (H2 + Table)
+**Format:** Hard facts in a scannable structure
+
+This section is for buyers who research before purchasing — and there are many of them. Include everything relevant:
+
+| Specification | Detail |
+|---|---|
+| Connectivity | Bluetooth 5.3, 3.5mm wired |
+| Battery Life | Up to 40 hours (ANC on) |
+| Charging Time | 2 hours via USB-C |
+| Driver Size | 40mm |
+| Frequency Response | 20Hz – 20kHz |
+| Weight | 250g |
+| Colors | Midnight Black, Pearl White |
+| Compatibility | iOS, Android, Windows, Mac |
+| In the Box | Headphones, USB-C cable, 3.5mm cable, carry case |
+
+> **Note for writers:** Secondary and LSI keywords appear here naturally (battery, USB-C, Bluetooth, compatibility, etc.) without any forced placement.
+
+---
+
+### Step 5 — Use Case / Who It's For (H2)
+**Format:** Paint a picture of the ideal buyer's life
+
+Describe specific scenarios where the product shines. This section serves two purposes: it builds emotional connection with the right buyer, and it captures long-tail searches naturally.
+
+**Example:**
+> "Whether you're a remote worker who needs to focus during back-to-back calls, a frequent flyer looking for quiet on long-haul flights, or a student who wants to block out the library noise — the X900 was built for your life."
+
+**Tips:**
+- Name 2–4 specific use cases or personas
+- Use "whether you're..." or "perfect for..." constructions
+- Be specific — "daily commuters on the London Underground" converts better than "people on the go"
+
+---
+
+### Step 6 — Social Proof Snippet
+**Format:** Trust signal near the CTA — no heading needed
+
+Place just before the call to action. Keep it short and credible.
+
+**Examples:**
+- "Rated 4.8/5 by over 12,000 verified buyers."
+- "Winner of the TechChoice Audio Award 2024."
+- "As featured in WIRED, TechRadar, and The Verge."
+- "Trusted by professionals in 40+ countries."
+
+> **Do not invent social proof.** If you don't have verified data, leave this section out entirely.
+
+---
+
+### Step 7 — FAQ Section (H2 + H3 Questions)
+**Format:** Real buyer questions answered concisely
+
+This section is a powerful SEO tool. It:
+- Captures long-tail keyword searches
+- Can appear in Google's "People Also Ask" boxes (featured snippets — huge traffic)
+- Reduces pre-purchase hesitation and customer service load
+
+**How to structure it:**
+
+```
+## Frequently Asked Questions
+
+### Is the ProSound X900 compatible with iPhone?
+Yes. The X900 connects via Bluetooth 5.3 to any iPhone running iOS 12 or later...
+
+### How long does it take to fully charge?
+A full charge takes approximately 2 hours via the included USB-C cable...
+
+### Can I use them without Bluetooth (wired mode)?
+Yes. The included 3.5mm cable lets you use the X900 in passive wired mode...
+```
+
+**How to find the right questions:**
+- Google "People Also Ask" for your product category
+- Amazon Q&A sections on competitor products
+- Your own customer service inbox
+- Reddit threads about the product type
+
+**Aim for 3–6 questions.** More than 6 can overwhelm — link to a full FAQ page instead.
+
+---
+
+### Step 8 — Call to Action (CTA)
+**Format:** Clear, action-oriented, benefit-led
+
+As the writer, you often craft the CTA button text and surrounding copy. Avoid the generic. Lead with benefit, follow with action.
+
+| Generic (Weak) | Benefit-Led (Strong) |
+|---|---|
+| Add to Cart | Get Yours Today |
+| Buy Now | Start Working Better |
+| Submit | Claim Free Shipping |
+| Order | Shop the Full Range |
+
+**Surrounding CTA copy (optional but powerful):**
+> "Free shipping on all orders. 30-day returns. No questions asked."
+
+---
+
+## 6. Writing the Title Tag — The Most Important 60 Characters
+
+The **title tag** is the blue clickable link you see in Google search results. It is the single most influential piece of text on the page for SEO. It also determines whether someone clicks or scrolls past your result.
+
+### Title Tag Rules
+
+- Keep it **under 60 characters** — Google truncates anything longer in search results
+- Place the **primary keyword as close to the beginning as possible**
+- Include the **brand name** — at the start or end, separated by a pipe `|` or dash `–`
+- Add a compelling **modifier**: "Best", "Official", "Free Shipping", the year, or a unique value proposition
+- **Never duplicate** title tags across multiple product pages — each gets a unique one
+- Write for **humans first** — click-through rate directly affects your ranking
+
+### Examples
+
+✅ **Good title tag:**
+```
+ProSound X900 Noise-Cancelling Headphones – 40Hr Battery | ProSound
+```
+- Primary keyword early ✓
+- Brand name at end ✓
+- Key benefit (40Hr Battery) included ✓
+- Under 60 characters ✓
+
+❌ **Bad title tag:**
+```
+Headphones Wireless Headphones Buy Headphones Bluetooth Noise Cancelling Headphones ProSound
+```
+- Keyword stuffed ✗
+- Way too long (truncated in results) ✗
+- No trust or brand clarity ✗
+- No compelling benefit ✗
+
+### Title Tag Formula
+
+```
+[Primary Keyword] + [Key Differentiator] | [Brand Name]
+```
+
+or
+
+```
+[Brand Name] [Product Name] – [Benefit]
+```
+
+---
+
+## 7. The Meta Description — Your Ad in Search Results
+
+The meta description is the short text snippet below the title tag in Google results. It **does not directly affect ranking** — but it massively affects your **click-through rate (CTR)**, which does affect ranking. Think of it as your 155-character sales pitch.
+
+### Meta Description Rules
+
+| Rule | Detail |
+|---|---|
+| **Length** | 150–160 characters. Google truncates beyond this. Count carefully. |
+| **Keyword** | Include the primary keyword once. Google bolds it in results — makes your listing stand out. |
+| **Tone** | Active and urgent. Use strong action verbs. |
+| **CTA** | Always include one: "Shop now", "Order today", "Get free delivery." |
+| **Uniqueness** | Every product page needs a unique meta description — never copy-paste. |
+| **No clickbait** | The description must accurately reflect the page content or Google may rewrite it. |
+
+### Meta Description Formula
+
+```
+[Key benefit or hook] + [Primary keyword naturally] + [Second benefit or feature] + [CTA]
+```
+
+### Example
+
+✅ **Good meta description:**
+```
+Experience studio-quality sound with the ProSound X900 wireless headphones.
+40-hour battery, active noise cancellation, and all-day comfort.
+Free shipping on orders over $50. Shop now.
+```
+*(157 characters — keyword present — benefit-led — CTA included)*
+
+❌ **Bad meta description:**
+```
+Buy ProSound X900 headphones. Headphones for sale. Best headphones. Order headphones online today.
+```
+*(Keyword stuffed — no real benefit — reads as spam)*
+
+---
+
+## 8. Body Copy Rules — Writing the Description Itself
+
+### Ideal Word Count
+
+| Product Type | Word Count | Why |
+|---|---|---|
+| Simple products (accessories, basic items) | 150–250 words | Enough to inform without overwhelming |
+| Standard e-commerce products | 300–500 words | SEO sweet spot for most categories |
+| Complex products (electronics, appliances, software) | 600–1,000+ words | Buyers research heavily; specs demand space |
+
+> Below 150 words, Google may classify your page as "thin content" — a ranking penalty. Always aim above that floor.
+
+### The Feature → Benefit Formula
+
+Every feature you write must be linked to a human benefit. Features describe the product. Benefits sell it.
+
+**Feature only (weak):**
+> Made with 316L stainless steel.
+
+**Feature + Benefit (strong):**
+> Built from 316L surgical-grade stainless steel — rust-proof, hypoallergenic, and tough enough to survive daily wear without losing its shine.
+
+**The test:** After every feature, ask yourself: *"So what? Why does the buyer care?"* Your answer is the benefit.
+
+### Heading Hierarchy
+
+```
+H1 — Product name with primary keyword (ONE per page)
+  H2 — Key Features
+  H2 — Specifications
+  H2 — Who It's For
+  H2 — Frequently Asked Questions
+    H3 — Individual FAQ question
+    H3 — Individual FAQ question
+```
+
+- Never skip levels (do not jump from H1 to H3)
+- Include keywords in subheadings where it sounds natural
+- Headings are scanned by readers and crawled by algorithms equally
+
+### Paragraph and Sentence Guidelines
+
+- Keep paragraphs to **2–4 sentences** maximum in product copy
+- Aim for sentences **under 20 words** — easier to scan, higher readability
+- Use **bullet points** for 3 or more items in a list — never write "It has features A, B, C, D, and E" in a sentence when bullets would serve better
+- Use **bold sparingly** — for genuinely key terms, not decoration
+- Leave **white space** — dense walls of text kill conversions, especially on mobile
+
+### Formatting Hierarchy (Quick Reference)
+
+```
+Title (H1)
+├── Opening hook paragraph (no heading)
+├── Key Features (H2)
+│   └── Bullet list of feature + benefit pairs
+├── Specifications (H2)
+│   └── Table
+├── Who It's For (H2)
+│   └── 1–2 short paragraphs with use cases
+├── Social proof snippet (no heading)
+├── FAQ (H2)
+│   ├── Question 1 (H3)
+│   ├── Question 2 (H3)
+│   └── Question 3 (H3)
+└── CTA copy
+```
+
+---
+
+## 9. Tone, Voice & Readability
+
+Your tone must match your audience and your brand. A luxury skincare brand writes differently than a budget gaming accessories store. Before you write a single word, confirm: **who is the buyer, and what voice does this brand use?**
+
+### Universal Readability Rules (Apply to Every Brand)
+
+- Write at a **Grade 6–8 reading level**. Use the Hemingway Editor to check. Even highly educated buyers prefer plain language when shopping.
+- Use **"you"** — speak directly to the reader, not about a hypothetical customer
+- Use **active voice**: "This chair supports your back" — not "Your back is supported by this chair"
+- Avoid **jargon** unless your audience demands it (tech buyers expect specs; general consumers don't)
+- Cut **weak adverbs**: "extremely comfortable" is weaker than "fits like it was made for you"
+- **Never start** with the brand name or "Introducing…" — start with the benefit or the buyer's problem
+- Avoid **vague claims**: "high quality", "great product", "amazing design" — prove it with specifics, or cut it entirely
+
+### Readability Target
+
+| Metric | Target | Tool |
+|---|---|---|
+| Flesch Reading Ease | 60–70 | Hemingway App |
+| Average sentence length | Under 20 words | Hemingway App |
+| Passive voice | Under 10% of sentences | Hemingway App / Grammarly |
+| Paragraph length | 2–4 sentences | Manual review |
+
+### Brand Voice Quick Guide
+
+| Brand Type | Tone | Example Phrase |
+|---|---|---|
+| Luxury / Premium | Refined, confident, aspirational | "Crafted for those who demand the extraordinary." |
+| Budget / Value | Friendly, direct, savings-focused | "Big performance. Small price tag." |
+| Technical / B2B | Precise, authoritative, data-driven | "99.97% uptime across 12 global server clusters." |
+| Lifestyle / Youth | Casual, energetic, relatable | "Built for the way you actually live." |
+| Health / Wellness | Warm, reassuring, empowering | "Because feeling your best shouldn't be complicated." |
+
+---
+
+## 10. Common Mistakes to Avoid
+
+These errors will hurt your ranking, your conversion rate, or both.
+
+### Content Mistakes
+
+- **Copying the manufacturer's description** — Google flags this as duplicate content and may derank or ignore the page entirely. Always rewrite from scratch.
+- **Keyword stuffing** — repeating the keyword so often it reads unnaturally. Google penalizes this and readers notice immediately.
+- **Writing only for the algorithm** — a page that ranks but doesn't convert is useless. High traffic with zero sales means the copy failed.
+- **Vague, generic claims** — "premium quality", "best in class", "perfect for everyone" mean nothing. Replace with specifics.
+- **Not mentioning the problem the product solves** — buyers don't buy products, they buy solutions. Always frame the product around what it fixes.
+
+### Structural Mistakes
+
+- **Using the same title tag or meta description across multiple pages** — each product page needs unique metadata.
+- **No FAQ section** — you're leaving featured snippet opportunities and long-tail traffic on the table.
+- **Missing specifications** — buyers who can't find the info they need simply leave for a competitor.
+- **No internal links** — link to related products or categories to distribute page authority and guide the buyer deeper.
+
+### Formatting Mistakes
+
+- **Walls of text with no structure** — no headings, no bullets, no white space. Readers abandon, bounce rate rises, ranking drops.
+- **Ignoring mobile formatting** — over 60% of product searches happen on mobile. Short paragraphs and bullet points are not optional.
+- **Forgetting image alt text** — every product image needs descriptive alt text with the keyword where natural. This affects both SEO and accessibility.
+
+### Copy Mistakes
+
+- **Writing in past tense** — product descriptions should be present tense, active voice
+- **No call to action** — always close with a reason to act now
+- **Describing what a product is instead of what it does for the buyer** — features tell, benefits sell
+
+---
+
+## 11. Final Pre-Publish Checklist
+
+Run through every item below before submitting or publishing any product description. Do not skip steps even if you're pressed for time.
+
+### Research & Keywords
+- [ ] Primary keyword identified through research (not guesswork)
+- [ ] Secondary and long-tail keywords noted and ready for natural placement
+- [ ] Search intent confirmed — copy matches what the buyer at this stage actually needs
+
+### Title Tag & Meta Description
+- [ ] Title tag is under 60 characters
+- [ ] Title tag contains the primary keyword near the start
+- [ ] Title tag includes the brand name
+- [ ] Meta description is 150–160 characters
+- [ ] Meta description includes the primary keyword once
+- [ ] Meta description includes a CTA
+- [ ] Both are unique — not used on any other page
+
+### Page Structure
+- [ ] H1 is present and contains the primary keyword
+- [ ] H2 and H3 subheadings used correctly — no skipped levels
+- [ ] Heading hierarchy is logical and easy to follow
+
+### Body Copy
+- [ ] Minimum 300 words of unique, original copy
+- [ ] Opening paragraph contains the primary keyword within the first 100 words
+- [ ] Features written as Feature + Benefit pairs — not just spec dumps
+- [ ] Specifications section included with all relevant product data
+- [ ] Use case or "who it's for" section included
+- [ ] No copy-pasted content from manufacturer or other pages
+- [ ] Keywords appear naturally — no stuffing or forced repetition
+
+### Readability & Tone
+- [ ] Readability checked — Grade 6–8 target, active voice, short sentences
+- [ ] Tone matches the brand voice guidelines
+- [ ] No vague claims — every assertion is supported by a specific detail
+
+### Conversion Elements
+- [ ] FAQ section included with 3+ genuine buyer questions answered
+- [ ] Social proof snippet included (if data is available)
+- [ ] CTA is present, clear, and benefit-led
+
+### Technical Elements
+- [ ] Image alt text written for all product images (descriptive, keyword where natural)
+- [ ] Internal links to at least 1–2 related pages or categories included
+- [ ] No broken links or placeholder text left in the copy
+
+### Final Review
+- [ ] Read the entire description aloud — anything that sounds unnatural gets rewritten
+- [ ] Proofread — zero grammar or spelling errors
+- [ ] Confirmed the description accurately represents what the product actually is
+
+---
+
+*Guide compiled for content writers working on SEO product descriptions.*
+*Apply it consistently and your rankings, click-through rates, and conversion rates will reflect the work.*
+`;
+            const content = document.getElementById('post-content');
+            if (markdown.trim()) {
+                content.innerHTML = marked.parse(markdown);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(() => {
+                    const headings = content.querySelectorAll('h2, h3');
+                    const toc = document.getElementById('toc');
+                    const tocMobile = document.getElementById('toc-mobile');
+
+                    headings.forEach((heading, i) => {
+                        if (!heading.id) heading.id = 'heading-' + i;
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = '#' + heading.id;
+                        a.textContent = heading.textContent;
+                        if (heading.tagName === 'H3') a.classList.add('sub-item');
+                        li.appendChild(a);
+                        toc.appendChild(li.cloneNode(true));
+                        tocMobile.appendChild(li);
+                    });
+                }, 100);
+            });
+        </script>
+    </body>
+</html>
