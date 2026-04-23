@@ -1,0 +1,113 @@
+<nav class="site-nav">
+    <div class="nav-inner">
+
+        <a href="{{ '/' | relative_url }}" class="nav-logo">
+            <!--
+Logo mark: 28×28 viewBox
+Stair  — occupies bottom-left (4 equal steps, 7px each)
+Gear   — center at top-right corner (28,0), 8 teeth, radius 17/12
+Anything outside viewBox is naturally clipped — only the
+lower-left arc of the gear is visible, emerging from behind
+the stair's top-right corner, matching the org logo exactly.
+-->
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                style="flex-shrink:0;display:block;overflow:hidden">
+
+                <!-- Stair (concrete gray — matches logo surface color) -->
+                <path d="M 0 0 L 7 0 L 7 7 L 14 7 L 14 14 L 21 14 L 21 21 L 28 21 L 28 28 L 0 28 Z"
+                    fill="currentColor" opacity="0.28"/>
+
+                <!-- Gear ring with 8 teeth — center at (28,0), clipped by viewBox naturally -->
+                <!-- Only the lower-left arc + 2-3 teeth are visible inside the 28×28 box -->
+                <path d="M 39.80 -2.19 L 44.63 -3.53
+                    A 17 17 0 0 1 44.63 3.53
+                    L 39.80 2.19
+                    A 12 12 0 0 0 38.23 6.27 L 37.89 6.80
+                    L 42.26 9.26
+                    A 17 17 0 0 1 37.26 14.26
+                    L 34.80 9.89
+                    A 12 12 0 0 0 30.80 11.67 L 30.19 11.80
+                    L 31.53 16.63
+                    A 17 17 0 0 1 24.47 16.63
+                    L 25.81 11.80
+                    A 12 12 0 0 0 21.73 10.23 L 21.20 9.89
+                    L 18.74 14.26
+                    A 17 17 0 0 1 13.74 9.26
+                    L 18.11 6.80
+                    A 12 12 0 0 0 16.33 2.80 L 16.20 2.19
+                    L 11.37 3.53
+                    A 17 17 0 0 1 11.37 -3.53
+                    L 16.20 -2.19
+                    A 12 12 0 0 0 17.77 -6.27 L 18.11 -6.80
+                    L 13.74 -9.26
+                    A 17 17 0 0 1 18.74 -14.26
+                    L 21.20 -9.89
+                    A 12 12 0 0 0 25.20 -11.67 L 25.81 -11.80
+                    L 24.47 -16.63
+                    A 17 17 0 0 1 31.53 -16.63
+                    L 30.19 -11.80
+                    A 12 12 0 0 0 34.27 -10.23 L 34.80 -9.89
+                    L 37.26 -14.26
+                    A 17 17 0 0 1 42.26 -9.26
+                    L 37.89 -6.80
+                    A 12 12 0 0 0 39.67 -2.80 Z"
+                    fill="var(--accent)"/>
+
+            </svg>
+
+            <span class="logo-ar">السُّلَّم</span>
+            <span class="logo-en">AL Sullam</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+            <li><a href="{{ '/projects/' | relative_url }}" {% if page.url contains '/projects' %}class="active"{% endif %}>Projects</a></li>
+            <li><a href="{{ '/tags/' | relative_url }}" {% if page.url contains '/tags' %}class="active"{% endif %}>Docs</a></li>
+            <li><a href="{{ '/updates/' | relative_url }}" {% if page.url contains '/updates' %}class="active"{% endif %}>Updates</a></li>
+            <li><a href="{{ '/about/' | relative_url }}" {% if page.url contains '/about' %}class="active"{% endif %}>About</a></li>
+            <li><a href="{{ site.github_url }}" target="_blank" rel="noopener">GitHub ↗</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <!-- Theme toggle -->
+            <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+                <svg id="ico-sun" viewBox="0 0 24 24" style="display:none"><path d="M12 17a5 5 0 100-10 5 5 0 000 10zm0-13a1 1 0 011 1v1a1 1 0 11-2 0V5a1 1 0 011-1zm0 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm8-8a1 1 0 010 2h-1a1 1 0 010-2h1zM4 12a1 1 0 010 2H3a1 1 0 010-2h1zm12.66-5.66a1 1 0 011.41 1.41l-.7.7a1 1 0 11-1.42-1.41l.71-.7zM6.34 17.66a1 1 0 011.41 1.41l-.7.7a1 1 0 11-1.42-1.42l.71-.7zm12.02 1.42a1 1 0 01-1.41 1.41l-.71-.7a1 1 0 011.42-1.42l.7.71zM6.34 6.34a1 1 0 01-1.41 1.41l-.71-.7a1 1 0 011.42-1.41l.7.7z"/></svg>
+                <svg id="ico-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
+
+            <!-- Hamburger (mobile) -->
+            <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div class="mob-ov" id="mob-ov" onclick="toggleMobileMenu()"></div>
+<div class="mob-menu" id="mob-menu">
+    <ul class="mob-nav">
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+        <li><a href="{{ '/tags/' | relative_url }}">Docs</a></li>
+        <li><a href="{{ '/updates/' | relative_url }}">Updates</a></li>
+        <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+        <li><a href="{{ site.github_url }}" target="_blank">GitHub ↗</a></li>
+    </ul>
+
+    {% if site.projects %}
+    <div class="mob-label">Projects</div>
+    <ul class="mob-nav">
+        {% for project in site.projects %}
+        <li>
+            <a href="{{ project.url | relative_url }}">
+                {{ project.number | default: '00' }} — {{ project.title }}
+                {% if project.status == 'planned' %}<span style="opacity:.4"> (planned)</span>{% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

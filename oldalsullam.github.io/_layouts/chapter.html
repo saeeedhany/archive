@@ -1,0 +1,104 @@
+---
+layout: default
+---
+
+{% assign proj_slug = page.project %}
+{% assign project   = site.projects | where: "slug", proj_slug | first %}
+{% assign chapters  = site.chapters | where: "project", proj_slug | sort: "order" %}
+{% assign total     = chapters | size %}
+
+{% comment %} Find prev/next chapters {% endcomment %}
+{% assign prev_chap = nil %}
+{% assign next_chap = nil %}
+{% for chap in chapters %}
+{% if chap.url == page.url %}
+{% assign cur_idx = forloop.index0 %}
+{% endif %}
+{% endfor %}
+{% if cur_idx > 0 %}
+{% assign prev_idx = cur_idx | minus: 1 %}
+{% assign prev_chap = chapters[prev_idx] %}
+{% endif %}
+{% assign next_idx = cur_idx | plus: 1 %}
+{% if next_idx < total %}
+{% assign next_chap = chapters[next_idx] %}
+{% endif %}
+
+<div class="docs-wrap">
+
+    {% include sidebar-left.html %}
+
+    <main class="docs-main">
+
+        <!-- Breadcrumb -->
+        <div class="doc-hd">
+            <nav class="doc-crumb">
+                <a href="{{ '/' | relative_url }}">AL Sullam</a>
+                <span class="sep">/</span>
+                <a href="{{ '/#projects' | relative_url }}">Projects</a>
+                <span class="sep">/</span>
+                <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+                {% if page.version %}
+                <span class="sep">/</span>
+                {{ page.version }}
+                {% endif %}
+                <span class="sep">/</span>
+                {{ page.short_title | default: page.title }}
+            </nav>
+
+            <!-- Chapter progress -->
+            {% if total > 1 %}
+            <div class="chap-progress">
+                <div class="chap-progress-track">
+                    <div class="chap-progress-fill" style="width:{{ page.order | times: 100 | divided_by: total }}%"></div>
+                </div>
+                <span class="chap-progress-label">Chapter {{ page.order }} / {{ total }}</span>
+            </div>
+            {% endif %}
+
+            <div class="doc-title">{{ page.title }}</div>
+            {% if page.description %}
+            <p class="doc-lead">{{ page.description }}</p>
+            {% endif %}
+
+            {% if page.tags %}
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:14px">
+                {% for tag in page.tags limit:5 %}
+                <a href="{{ '/tags/#' | append: tag | slugify | relative_url }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Chapter content -->
+        <div class="doc-body" id="doc-body">
+            {{ content }}
+        </div>
+
+        <!-- Prev / Next navigation -->
+        <div class="chap-nav">
+            {% if prev_chap %}
+            <a href="{{ prev_chap.url | relative_url }}" class="chap-nav-btn">
+                <span class="chap-nav-dir">← Previous</span>
+                <span class="chap-nav-title">{{ prev_chap.short_title | default: prev_chap.title }}</span>
+            </a>
+            {% else %}
+            <a href="{{ project.url | relative_url }}" class="chap-nav-btn">
+                <span class="chap-nav-dir">← Back to</span>
+                <span class="chap-nav-title">{{ project.title }} Overview</span>
+            </a>
+            {% endif %}
+
+            {% if next_chap %}
+            <a href="{{ next_chap.url | relative_url }}" class="chap-nav-btn next">
+                <span class="chap-nav-dir">Next →</span>
+                <span class="chap-nav-title">{{ next_chap.short_title | default: next_chap.title }}</span>
+            </a>
+            {% endif %}
+        </div>
+
+    </main>
+
+    {% include sidebar-right.html %}
+
+</div>

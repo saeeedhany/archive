@@ -1,0 +1,184 @@
+---
+layout: default
+title: "Browse by Tag"
+permalink: /tags/
+---
+
+<div class="page-wrap">
+    <div class="container page-inner">
+
+        <div class="slabel">Index</div>
+        <h2>Browse Everything</h2>
+        <p class="page-intro">
+        All projects and chapters, organized by topic.
+        Use the tag cloud to filter &#8212; or scroll to browse by project.
+        </p>
+
+        <!-- TAG CLOUD -->
+        {% assign all_tags = "" | split: "" %}
+        {% for project in site.projects %}
+        {% for tag in project.tags %}{% assign all_tags = all_tags | push: tag %}{% endfor %}
+        {% endfor %}
+        {% for chapter in site.chapters %}
+        {% for tag in chapter.tags %}{% assign all_tags = all_tags | push: tag %}{% endfor %}
+        {% endfor %}
+        {% assign all_tags = all_tags | uniq | sort %}
+
+        <div class="tag-cloud-lg" id="tag-cloud">
+            <span class="tag active" data-tag="all" onclick="filterTag('all')">All</span>
+            {% for tag in all_tags %}
+            <span class="tag" data-tag="{{ tag | slugify }}" onclick="filterTag('{{ tag | slugify }}')">{{ tag }}</span>
+            {% endfor %}
+        </div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--bo-0)">
+            <div class="tag-result-label" id="tag-label" style="border:none;margin:0;padding:0">Showing all</div>
+            <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--tx-3)">
+                {{ site.projects | size }} projects &middot; {{ site.chapters | size }} chapters
+            </span>
+        </div>
+
+        <!-- CONTENT: chapters grouped by project -->
+        <!-- Each group is a filterable block: if no chapters match, the group hides -->
+        <div id="all-groups">
+
+            {% for project in site.projects %}
+            {% assign proj_chapters = site.chapters | where: "project", project.slug | sort: "order" %}
+
+            <!--
+                proj-group wraps both the project header entry and all its chapter entries.
+                The JS filter checks individual chap-entry elements; if all in a group are hidden,
+                the group header (proj-group-block) also hides via JS.
+            -->
+            <div class="proj-group-block" data-project="{{ project.slug }}"
+                                          data-proj-tags="{% for t in project.tags %}{{ t | slugify }} {% endfor %}">
+
+                <!-- Project header row -->
+                <div class="proj-index-row tag-filterable"
+                     data-tags="{% for t in project.tags %}{{ t | slugify }} {% endfor %}"
+                     data-kind="project">
+                    <div class="pir-left">
+                        <span class="pir-num">{{ project.number | default: forloop.index | prepend: "00" | slice: -3, 3 }}</span>
+                        <div>
+                            <div class="pir-title">
+                                {% if project.status != "planned" %}
+                                <a href="{{ project.url | relative_url }}" style="color:inherit;text-decoration:none">{{ project.title }}</a>
+                                {% else %}
+                                {{ project.title }}
+                                {% endif %}
+                            </div>
+                            <div class="pir-meta">
+                                <span class="chap-project-lang">{{ project.lang }}</span>
+                                {% if project.status == "complete" %}<span class="status s-ok" style="font-size:.55rem"><span class="sdot"></span>Complete</span>
+                                {% elsif project.status == "wip" %}<span class="status s-wip" style="font-size:.55rem"><span class="sdot"></span>In Progress</span>
+                                {% else %}<span class="status s-plan" style="font-size:.55rem"><span class="sdot"></span>Planned</span>{% endif %}
+                                {% if proj_chapters.size > 0 %}<span style="font-family:var(--font-mono);font-size:.58rem;color:var(--tx-3)">{{ proj_chapters.size }} chapters</span>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pir-tags">
+                        {% for tag in project.tags limit:4 %}<span class="tag" onclick="filterTag('{{ tag | slugify }}')">{{ tag }}</span>{% endfor %}
+                    </div>
+                </div>
+
+                <!-- Chapter rows under this project -->
+                {% if proj_chapters.size > 0 %}
+                <div class="chap-index-list">
+                    {% for chapter in proj_chapters %}
+                    <div class="tag-filterable chap-index-row"
+                         data-tags="{% for t in chapter.tags %}{{ t | slugify }} {% endfor %}"
+                         data-kind="chapter">
+                        <a href="{{ chapter.url | relative_url }}" class="chap-row" style="padding-left:32px">
+                            <span class="chap-row-num">{{ chapter.order | prepend: "00" | slice: -2, 2 }}</span>
+                            <span class="chap-row-title">{{ chapter.short_title | default: chapter.title }}</span>
+                            {% if chapter.summary %}<span class="chap-row-desc">{{ chapter.summary }}</span>{% endif %}
+                            <span class="chap-row-tags">{% for tag in chapter.tags limit:3 %}<span class="tag" onclick="event.preventDefault();filterTag('{{ tag | slugify }}')">{{ tag }}</span>{% endfor %}</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            </div><!-- /proj-group-block -->
+            {% endfor %}
+
+        </div><!-- /all-groups -->
+
+        <!-- Empty state -->
+        <div id="empty-state" style="display:none;padding:48px 0;text-align:center">
+            <p style="color:var(--tx-3);font-family:var(--font-mono);font-size:.8rem;letter-spacing:.1em">NO RESULTS FOR THIS TAG</p>
+            <button onclick="filterTag('all')" class="cta-btn" style="margin-top:16px">Clear filter</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function filterTag(slug) {
+        var allPills      = document.querySelectorAll('#tag-cloud .tag');
+        var allFilterable = document.querySelectorAll('.tag-filterable');
+        var allGroups     = document.querySelectorAll('.proj-group-block');
+        var label         = document.getElementById('tag-label');
+        var emptyState    = document.getElementById('empty-state');
+
+        // Update active pill
+        allPills.forEach(function(p) {
+            p.classList.toggle('active', p.getAttribute('data-tag') === slug);
+        });
+
+        var totalVisible = 0;
+
+        if (slug === 'all') {
+            allFilterable.forEach(function(el) { el.style.display = ''; });
+            allGroups.forEach(function(g) { g.style.display = ''; });
+            label.innerHTML = 'Showing all';
+            emptyState.style.display = 'none';
+            return;
+        }
+
+        // Show/hide individual filterable rows
+        allFilterable.forEach(function(el) {
+            var tags = el.getAttribute('data-tags') || '';
+            var show = tags.split(' ').indexOf(slug) !== -1;
+            el.style.display = show ? '' : 'none';
+            if (show) totalVisible++;
+        });
+
+        // Show/hide group blocks: show if project tags match OR any child chapter matches
+        allGroups.forEach(function(g) {
+            var projTags = g.getAttribute('data-proj-tags') || '';
+            var projMatch = projTags.split(' ').indexOf(slug) !== -1;
+
+            // Check if any chapter rows inside are visible
+            var chapRows = g.querySelectorAll('.chap-index-row');
+            var anyChapVisible = false;
+            chapRows.forEach(function(r) {
+                if (r.style.display !== 'none') anyChapVisible = true;
+            });
+
+            // Always show the project header row when there's a match
+            var projRow = g.querySelector('.proj-index-row');
+            if (projMatch || anyChapVisible) {
+                g.style.display = '';
+                if (projRow) projRow.style.display = '';
+            } else {
+                g.style.display = 'none';
+            }
+        });
+
+        // Update label
+        var pill = document.querySelector('[data-tag="' + slug + '"]');
+        var tagName = pill ? pill.textContent.trim() : slug;
+        label.innerHTML = 'Tag: <span style="color:var(--accent)">' + tagName + '</span> &mdash; ' + totalVisible + ' result' + (totalVisible === 1 ? '' : 's');
+
+        // Empty state
+        emptyState.style.display = (totalVisible === 0) ? 'block' : 'none';
+    }
+
+    // Auto-filter from URL hash: /tags/#sha-1
+    (function() {
+        if (window.location.hash) {
+            filterTag(window.location.hash.slice(1));
+        }
+    })();
+</script>

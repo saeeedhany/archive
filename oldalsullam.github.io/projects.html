@@ -1,0 +1,79 @@
+---
+layout: default
+title: "All Projects"
+permalink: /projects/
+---
+
+<div class="page-wrap">
+    <div class="container page-inner">
+
+        <div class="slabel">Projects</div>
+        <h2>All Projects</h2>
+        <p class="page-intro">
+            Every project at AL Sullam attacks a fundamental layer of computing &#8212;
+            networking, language processing, operating systems &#8212; and rebuilds it
+            from first principles in C.
+        </p>
+
+        <!-- ACTIVE PROJECTS (complete + wip) -->
+        {% assign active = site.projects | where_exp: "p", "p.status != 'planned'" %}
+        {% if active.size > 0 %}
+        <div class="proj-group">
+            <div class="proj-group-header">
+                <span class="proj-group-title">Active</span>
+                <span class="proj-group-count">{{ active.size }} project{% if active.size != 1 %}s{% endif %}</span>
+            </div>
+            <div class="proj-grid">
+                {% for project in site.projects %}{% if project.status != "planned" %}
+                <article class="pcard">
+                    <div class="pc-head">
+                        <div class="pc-num">PROJECT-{{ project.number | default: forloop.index | prepend: "00" | slice: -3, 3 }}</div>
+                        <div class="pc-title">{{ project.title }}</div>
+                        <div class="pc-lang">{{ project.lang }}</div>
+                    </div>
+                    <div class="pc-body"><p class="pc-desc">{{ project.description | truncate: 180 }}</p></div>
+                    <div class="pc-tags">{% for tag in project.tags limit:4 %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+                    <div class="pc-foot">
+                        {% if project.status == "complete" %}
+                        <span class="status s-ok"><span class="sdot"></span>Complete</span>
+                        {% else %}
+                        <span class="status s-wip"><span class="sdot"></span>In Progress</span>
+                        {% endif %}
+                        <a href="{{ project.url | relative_url }}" class="clink">View docs &#8594;</a>
+                    </div>
+                </article>
+                {% endif %}{% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- PLANNED PROJECTS -->
+        {% assign planned = site.projects | where: "status", "planned" %}
+        {% if planned.size > 0 %}
+        <div class="proj-group">
+            <div class="proj-group-header">
+                <span class="proj-group-title">On the Stair</span>
+                <span class="proj-group-count">{{ planned.size }} planned</span>
+            </div>
+            <div class="proj-grid">
+                {% for project in site.projects %}{% if project.status == "planned" %}
+                <article class="pcard" style="opacity:.7">
+                    <div class="pc-head">
+                        <div class="pc-num">PROJECT-{{ project.number | default: forloop.index | prepend: "00" | slice: -3, 3 }}</div>
+                        <div class="pc-title">{{ project.title }}</div>
+                        <div class="pc-lang">{{ project.lang }}</div>
+                    </div>
+                    <div class="pc-body"><p class="pc-desc">{{ project.description | truncate: 180 }}</p></div>
+                    <div class="pc-tags">{% for tag in project.tags limit:4 %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+                    <div class="pc-foot">
+                        <span class="status s-plan"><span class="sdot"></span>Planned</span>
+                        <span style="font-family:var(--font-mono);font-size:.62rem;color:var(--tx-3)">Coming soon</span>
+                    </div>
+                </article>
+                {% endif %}{% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>

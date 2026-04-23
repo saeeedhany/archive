@@ -1,0 +1,147 @@
+{% comment %}
+Left sidebar: project info + grouped chapter navigation
+Variables expected:
+page.project  — slug of the parent project (e.g. "btorrent")
+page          — current chapter or project page
+{% endcomment %}
+
+{% assign proj_slug = page.project | default: page.slug %}
+{% assign project   = site.projects | where: "slug", proj_slug | first %}
+
+{% comment %} Collect all chapters for this project, sorted by order {% endcomment %}
+{% assign chapters = site.chapters | where: "project", proj_slug | sort: "order" %}
+
+{% comment %} Group chapters by their version/part field {% endcomment %}
+{% assign versions = chapters | map: "version" | uniq | compact %}
+
+<aside class="sb-left" id="sb-left">
+
+    <a href="{{ '/' | relative_url }}" class="sb-back">← All Projects</a>
+
+    {% if project %}
+    <div class="sb-proj-name">{{ project.title }}</div>
+    <div class="sb-proj-desc">{{ project.tagline | default: project.description | truncate: 80 }}</div>
+    <div class="sb-proj-meta">
+        <span class="sb-badge ac">{{ project.lang }}</span>
+        {% if project.status == 'complete' %}
+        <span class="sb-badge ok">Complete</span>
+        {% elsif project.status == 'wip' %}
+        <span class="sb-badge" style="border-color:var(--c-amber);color:var(--c-amber)">WIP</span>
+        {% else %}
+        <span class="sb-badge">Planned</span>
+        {% endif %}
+        {% if project.version %}
+        <span class="sb-badge">v{{ project.version }}</span>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="sb-divider"></div>
+
+    {% comment %} Overview link (the project index page itself) {% endcomment %}
+    <ul class="sb-nav">
+        <li>
+            <a href="{{ project.url | relative_url }}"
+               {% if page.url == project.url %}class="active"{% endif %}>
+                Overview
+            </a>
+        </li>
+    </ul>
+
+    {% if chapters.size > 0 %}
+    <div class="sb-section-label">Documentation</div>
+
+    {% if versions.size > 0 %}
+    {% comment %} Versioned/grouped chapters {% endcomment %}
+    {% for ver in versions %}
+    {% assign ver_chapters = chapters | where: "version", ver %}
+    <div class="sb-group {% if page.version == ver or ver_chapters contains page %}expanded{% endif %}"
+         data-group="{{ ver | slugify }}">
+        <div class="sb-group-title" onclick="toggleGroup('{{ ver | slugify }}')">
+            {{ ver }}
+        </div>
+        <ul class="sb-group-items">
+            {% for chap in ver_chapters %}
+            <li>
+                <a href="{{ chap.url | relative_url }}"
+                   {% if chap.url == page.url %}class="active"{% endif %}>
+                    <span class="sb-chap-num">{{ chap.order | prepend: '00' | slice: -2, 2 }}</span>
+                    {{ chap.short_title | default: chap.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    {% comment %} Flat chapter list (no versions) {% endcomment %}
+    <ul class="sb-nav">
+        {% for chap in chapters %}
+        <li>
+            <a href="{{ chap.url | relative_url }}"
+               {% if chap.url == page.url %}class="active"{% endif %}>
+                <span class="sb-chap-num">{{ chap.order | prepend: '00' | slice: -2, 2 }}</span>
+                {{ chap.short_title | default: chap.title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
+
+    {% comment %} Quick links {% endcomment %}
+    <div class="sb-divider"></div>
+    <div class="sb-section-label">Links</div>
+    <ul class="sb-quick sb-nav">
+        {% if project.github %}
+        <li><a href="{{ project.github }}" target="_blank" rel="noopener">↗ Source Code</a></li>
+        {% endif %}
+        {% for link in project.links %}
+        <li><a href="{{ link.url }}" target="_blank" rel="noopener">↗ {{ link.label }}</a></li>
+        {% endfor %}
+    </ul>
+
+    {% comment %} Metadata {% endcomment %}
+    {% if project %}
+    <div class="sb-meta">
+        <div class="sb-meta-row">
+            <span class="smr-k">Language</span>
+            <span class="smr-v ac">{{ project.lang }}</span>
+        </div>
+        {% if project.status == 'complete' %}
+        <div class="sb-meta-row">
+            <span class="smr-k">Status</span>
+            <span class="smr-v ok">● Complete</span>
+        </div>
+        {% endif %}
+        {% if project.version %}
+        <div class="sb-meta-row">
+            <span class="smr-k">Version</span>
+            <span class="smr-v">{{ project.version }}</span>
+        </div>
+        {% endif %}
+        {% if project.lines_of_code %}
+        <div class="sb-meta-row">
+            <span class="smr-k">Lines</span>
+            <span class="smr-v">{{ project.lines_of_code }}</span>
+        </div>
+        {% endif %}
+        {% if project.tests %}
+        <div class="sb-meta-row">
+            <span class="smr-k">Tests</span>
+            <span class="smr-v ac">{{ project.tests }}</span>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if project.tags %}
+    <div class="sb-tags">
+        {% for tag in project.tags limit:5 %}
+        <a href="{{ '/tags/#' | append: tag | slugify | relative_url }}" class="tag">{{ tag }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+
+</aside>

@@ -1,0 +1,57 @@
+title:       "AL Sullam"
+tagline:     "درجة بدرجة — Step by Step"
+description: "A systems programming organization building low-level software from scratch. Every project is a step up the stair."
+baseurl:     ""
+url:         ""
+github_url:  "https://github.com/alsullam"
+
+org:
+  name:    "AL Sullam"
+  arabic:  "السُّلَّم"
+  founded: "2026"
+
+author:
+  name:   "AL Sullam"
+  github: "alsullam"
+
+markdown:   kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+  chapters:
+    output: true
+    permalink: /projects/:path/   # e.g. /projects/btorrent/01-overview/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+
+  - scope:
+      path: ""
+      type: chapters
+    values:
+      layout: chapter
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - "*.sh"

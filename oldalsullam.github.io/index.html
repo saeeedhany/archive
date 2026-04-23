@@ -1,0 +1,162 @@
+---
+layout: default
+title: "Systems Programming from Scratch"
+---
+
+<!-- HERO -->
+<section class="hero">
+    <svg class="hero-stair" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="350" width="400" height="50" fill="currentColor"/>
+        <rect x="0" y="300" width="350" height="50" fill="currentColor"/>
+        <rect x="0" y="250" width="300" height="50" fill="currentColor"/>
+        <rect x="0" y="200" width="250" height="50" fill="currentColor"/>
+        <rect x="0" y="150" width="200" height="50" fill="currentColor"/>
+        <rect x="0" y="100" width="150" height="50" fill="currentColor"/>
+        <rect x="0" y="50"  width="100" height="50" fill="currentColor"/>
+        <rect x="0" y="0"   width="50"  height="50" fill="currentColor"/>
+    </svg>
+    <div class="container">
+        <div class="hero-inner">
+            <div class="eyebrow fu">Low-Level Systems Organization</div>
+            <h1 class="fu d1"><span class="h-sub">&#x627;&#x644;&#x633;&#x64F;&#x651;&#x644;&#x651;&#x645;</span>AL SULLAM</h1>
+            <p class="h-desc fu d2">We build systems software from absolute zero &#8212; no abstractions borrowed, no magic accepted. Every project is a <strong>step up the stair</strong>, built from scratch in low-level languages, fully documented.</p>
+            <div class="hero-stats fu d3">
+                <div><div class="stat-val">{{ site.projects | size }}</div><div class="stat-lbl">Projects</div></div>
+                <div><div class="stat-val">{{ site.chapters | size }}</div><div class="stat-lbl">Chapters</div></div>
+                <div><div class="stat-val">C</div><div class="stat-lbl">Primary Lang</div></div>
+                <div><div class="stat-val">0</div><div class="stat-lbl">Borrowed Magic</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED PROJECTS: show 3, CTA to /projects/ -->
+<section class="proj-section" id="projects">
+    <div class="container">
+        <div class="slabel">Featured Projects</div>
+        <h2 style="margin-bottom:6px">Every Step, Built by Hand</h2>
+        <p style="max-width:500px;margin-bottom:0">Each project rebuilds a fundamental layer of computing from first principles.</p>
+
+        {% assign shown = 0 %}
+        <div class="proj-grid">
+
+            {% for project in site.projects %}{% if project.status == "complete" and shown < 3 %}{% assign shown = shown | plus: 1 %}
+                <article class="pcard">
+                    <div class="pc-head">
+                        <div class="pc-num">PROJECT-{{ project.number | default: forloop.index | prepend: "00" | slice: -3, 3 }}</div>
+                        <div class="pc-title">{{ project.title }}</div>
+                        <div class="pc-lang">{{ project.lang }}</div>
+                    </div>
+                    <div class="pc-body"><p class="pc-desc">{{ project.description | truncate: 160 }}</p></div>
+                    <div class="pc-tags">{% for tag in project.tags limit:4 %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+                    <div class="pc-foot">
+                        <span class="status s-ok"><span class="sdot"></span>Complete</span>
+                        <a href="{{ project.url | relative_url }}" class="clink">View docs &#8594;</a>
+                    </div>
+                </article>
+                {% endif %}{% endfor %}
+
+                {% for project in site.projects %}{% if project.status == "wip" and shown < 3 %}{% assign shown = shown | plus: 1 %}
+                    <article class="pcard">
+                        <div class="pc-head">
+                            <div class="pc-num">PROJECT-{{ project.number | default: forloop.index | prepend: "00" | slice: -3, 3 }}</div>
+                            <div class="pc-title">{{ project.title }}</div>
+                            <div class="pc-lang">{{ project.lang }}</div>
+                        </div>
+                        <div class="pc-body"><p class="pc-desc">{{ project.description | truncate: 160 }}</p></div>
+                        <div class="pc-tags">{% for tag in project.tags limit:4 %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+                        <div class="pc-foot">
+                            <span class="status s-wip"><span class="sdot"></span>In Progress</span>
+                            <a href="{{ project.url | relative_url }}" class="clink">View docs &#8594;</a>
+                        </div>
+                    </article>
+                    {% endif %}{% endfor %}
+
+                    {% for project in site.projects %}{% if project.status == "planned" and shown < 3 %}{% assign shown = shown | plus: 1 %}
+                        <article class="pcard">
+                            <div class="pc-head">
+                                <div class="pc-num">PROJECT-{{ project.number | default: forloop.index | prepend: "00" | slice: -3, 3 }}</div>
+                                <div class="pc-title">{{ project.title }}</div>
+                                <div class="pc-lang">{{ project.lang }}</div>
+                            </div>
+                            <div class="pc-body"><p class="pc-desc">{{ project.description | truncate: 160 }}</p></div>
+                            <div class="pc-tags">{% for tag in project.tags limit:4 %}<span class="tag">{{ tag }}</span>{% endfor %}</div>
+                            <div class="pc-foot">
+                                <span class="status s-plan"><span class="sdot"></span>Planned</span>
+                                <span style="font-family:var(--font-mono);font-size:.62rem;color:var(--tx-3)">Coming soon</span>
+                            </div>
+                        </article>
+                        {% endif %}{% endfor %}
+
+        </div>
+
+        <div class="section-footer">
+            <p class="section-footer-note">Showing <strong>{{ shown }}</strong> of <strong>{{ site.projects | size }}</strong> projects</p>
+            <a href="{{ '/projects/' | relative_url }}" class="cta-btn">All Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- DOCUMENTATION PREVIEW: chapters grouped by project, 3 per project, CTA to /tags/ -->
+<section class="tags-section" id="docs-preview">
+    <div class="container">
+        <div class="slabel">Documentation</div>
+        <h2 style="margin-bottom:6px">Learn by Reading the Source</h2>
+        <p style="max-width:500px;margin-bottom:32px">Every project ships with in-depth chapters explaining the theory, the algorithm, and the implementation.</p>
+
+        {% for project in site.projects %}
+        {% assign proj_chapters = site.chapters | where: "project", project.slug | sort: "order" %}
+        {% if proj_chapters.size > 0 %}
+        <div class="chap-project-group">
+            <div class="chap-project-label">
+                <span class="chap-project-name">{{ project.title }}</span>
+                <span class="chap-project-lang">{{ project.lang }}</span>
+                <span style="font-family:var(--font-mono);font-size:.6rem;color:var(--tx-3)">{{ proj_chapters.size }} chapter{% if proj_chapters.size != 1 %}s{% endif %}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+                {% for chapter in proj_chapters limit:3 %}
+                <a href="{{ chapter.url | relative_url }}" class="chap-row">
+                    <span class="chap-row-num">{{ chapter.order | prepend: "00" | slice: -2, 2 }}</span>
+                    <span class="chap-row-title">{{ chapter.short_title | default: chapter.title }}</span>
+                    {% if chapter.summary %}<span class="chap-row-desc">{{ chapter.summary }}</span>{% endif %}
+                    <span class="chap-row-tags">{% for tag in chapter.tags limit:2 %}<span class="tag">{{ tag }}</span>{% endfor %}</span>
+                </a>
+                {% endfor %}
+                {% assign remaining = proj_chapters.size | minus: 3 %}
+                {% if remaining > 0 %}
+                <a href="{{ project.url | relative_url }}" class="chap-more-link">+ {{ remaining }} more chapter{% if remaining != 1 %}s{% endif %} in {{ project.title }} &#8594;</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        <div class="section-footer">
+            <p class="section-footer-note"><strong>{{ site.chapters | size }}</strong> total chapters across <strong>{{ site.projects | size }}</strong> projects</p>
+            <a href="{{ '/tags/' | relative_url }}" class="cta-btn">Browse All Chapters</a>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-sec" id="about">
+    <div class="container">
+        <div class="slabel">About</div>
+        <h2 style="margin-bottom:44px">Why We Build From Scratch</h2>
+        <div class="about-grid">
+            <div class="manifesto">
+                <p><strong>AL Sullam</strong> &#8212; "The Stair" in Arabic &#8212; is a systems programming organization with a single guiding principle: <strong>understand everything below you.</strong></p>
+                <p>We live in an era of spectacular abstractions. Frameworks, runtimes, managed languages &#8212; each a gift that hides the machine underneath. We're grateful for them. We also refuse to be mystified by them.</p>
+                <p>Every project starts at zero: no borrowed libraries for core logic, no generated parsers, no magic hash functions imported from somewhere else. We write the SHA-1. We write the TCP loop. We write the lexer character by character.</p>
+                <p><strong>Not because it's faster. Because it teaches.</strong> &#x62F;&#x631;&#x62C;&#x629; &#x628;&#x62F;&#x631;&#x62C;&#x629; &#8212; step by step.</p>
+            </div>
+            <ul class="phi-list">
+                <li class="phi-item"><span class="phi-n">01</span><p class="phi-t"><strong>No Black Boxes</strong>Every dependency must be understood. If we use it, we could write it.</p></li>
+                <li class="phi-item"><span class="phi-n">02</span><p class="phi-t"><strong>Document Everything</strong>Code without explanation is archaeology. Every project ships with deep-dive docs explaining the why, not just the how.</p></li>
+                <li class="phi-item"><span class="phi-n">03</span><p class="phi-t"><strong>The Spec Is the Authority</strong>RFC, BEP, ISO &#8212; read the actual specification, implement faithfully, test against official vectors.</p></li>
+                <li class="phi-item"><span class="phi-n">04</span><p class="phi-t"><strong>Low-Level First</strong>Start in C, where nothing is hidden. Understand memory, addresses, syscalls. Higher levels become obvious after.</p></li>
+                <li class="phi-item"><span class="phi-n">05</span><p class="phi-t"><strong>Correctness Over Performance</strong>Make it right before making it fast. Working SHA-1 beats broken SIMD.</p></li>
+            </ul>
+        </div>
+    </div>
+</section>

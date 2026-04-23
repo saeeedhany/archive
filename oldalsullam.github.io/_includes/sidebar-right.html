@@ -1,0 +1,46 @@
+{% comment %}
+Right TOC sidebar — reading progress + on-this-page heading list
+The JS in theme.js populates active states via IntersectionObserver.
+{% endcomment %}
+
+<aside class="sb-right" id="sb-right">
+
+    <div class="toc-prog">
+        <div class="toc-prog-label">Reading progress</div>
+        <div class="toc-track">
+            <div class="toc-fill" id="toc-fill"></div>
+        </div>
+    </div>
+
+    <div class="toc-div"></div>
+
+    {% if page.toc != false %}
+    <div class="toc-label">On this page</div>
+    <ul class="toc-list" id="toc-list">
+        {% comment %}
+        Jekyll doesn't auto-extract headings from Markdown.
+        We use a JS approach: assets/js/toc.js reads h2/h3 from
+        .doc-body at runtime and builds the TOC list.
+        The ul#toc-list is empty on render; JS fills it.
+        {% endcomment %}
+    </ul>
+    {% endif %}
+
+    {% if page.chapter_nav != false %}
+    <div class="toc-div" style="margin-top:auto"></div>
+
+    {% comment %} Chapter progress indicator {% endcomment %}
+    {% assign proj_slug = page.project | default: page.slug %}
+    {% assign chapters  = site.chapters | where: "project", proj_slug | sort: "order" %}
+    {% assign total     = chapters | size %}
+    {% if total > 0 %}
+    <div style="padding:12px 16px">
+        <div class="toc-prog-label">Chapter {{ page.order }} of {{ total }}</div>
+        <div class="toc-track" style="margin-top:5px">
+            <div class="toc-fill" style="width:{{ page.order | times: 100 | divided_by: total }}%"></div>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+</aside>

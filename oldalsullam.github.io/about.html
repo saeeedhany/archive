@@ -1,0 +1,124 @@
+---
+layout: default
+title: "AL Sullam — Building Systems From Scratch"
+description: "Learn about AL Sullam, our mission, principles, and the projects we build from first principles."
+---
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <div class="container">
+        <div class="slabel">About</div>
+        <h1>AL Sullam</h1>
+        <p class="page-desc">The stair to understanding — one step at a time.</p>
+    </div>
+</section>
+
+<!-- ORGANIZATION OVERVIEW -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-hero">
+            <div class="about-hero-text">
+                <h2>Our Mission</h2>
+                <p><strong>AL Sullam</strong> (السُّلَّم — "The Stair") is a systems programming organization with a single guiding principle: <strong>understand everything below you.</strong></p>
+                <p>We live in an era of spectacular abstractions. Frameworks, runtimes, managed languages — each a gift that hides the machine underneath. We're grateful for them. We also refuse to be mystified by them.</p>
+                <p>Every project starts at zero: no borrowed libraries for core logic, no generated parsers, no magic hash functions imported from somewhere else. We write the SHA-1. We write the TCP loop. We write the lexer character by character.</p>
+                <p><strong>Not because it's faster. Because it teaches.</strong> درجة بدرجة — step by step.</p>
+            </div>
+            <div class="about-hero-stats">
+                <div class="stat-card">
+                    <div class="stat-value">{{ site.projects | size }}</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ site.chapters | size }}</div>
+                    <div class="stat-label">Chapters</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ site.org.founded }}</div>
+                    <div class="stat-label">Founded</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="principles-section">
+    <div class="container">
+        <h2 class="section-title">Our Principles</h2>
+        <div class="principles-grid">
+            <div class="principle-card">
+                <div class="principle-num">01</div>
+                <h3>No Black Boxes</h3>
+                <p>Every dependency must be understood. If we use it, we could write it. We don't accept magic — we implement it.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-num">02</div>
+                <h3>Document Everything</h3>
+                <p>Code without explanation is archaeology. Every project ships with deep-dive docs explaining the why, not just the how.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-num">03</div>
+                <h3>The Spec Is the Authority</h3>
+                <p>RFC, BEP, ISO — read the actual specification, implement faithfully, test against official vectors.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-num">04</div>
+                <h3>Low-Level First</h3>
+                <p>Start in C, where nothing is hidden. Understand memory, addresses, syscalls. Higher levels become obvious after.</p>
+            </div>
+            <div class="principle-card">
+                <div class="principle-num">05</div>
+                <h3>Correctness Over Performance</h3>
+                <p>Make it right before making it fast. Working SHA-1 beats broken SIMD. Verify before optimizing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS OVERVIEW -->
+<section class="projects-overview-section">
+    <div class="container">
+        <h2 class="section-title">Our Projects</h2>
+        <p class="section-subtitle">Each project rebuilds a fundamental layer of computing from first principles.</p>
+
+        <div class="projects-overview-grid">
+            {% for project in site.projects %}
+            <a href="{{ project.url | relative_url }}" class="project-overview-card">
+                <div class="pov-header">
+                    <span class="pov-num">{{ project.number | default: '001' }}</span>
+                    <span class="pov-status {% if project.status == 'complete' %}s-ok{% elsif project.status == 'wip' %}s-wip{% else %}s-plan{% endif %}">
+                        {{ project.status }}
+                    </span>
+                </div>
+                <h3 class="pov-title">{{ project.title }}</h3>
+                <p class="pov-desc">{{ project.description | truncate: 120 }}</p>
+                <div class="pov-meta">
+                    <span class="pov-lang">{{ project.lang }}</span>
+                    <span class="pov-chapters">{{ site.chapters | where: "project", project.slug | size }} chapters</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT / CONNECT -->
+<section class="connect-section">
+    <div class="container">
+        <div class="connect-inner">
+            <h2>Connect</h2>
+            <p>All our code is open source. All our docs are free. Here's where to find us:</p>
+            <div class="connect-links">
+                <a href="{{ site.github_url }}" class="connect-link" target="_blank" rel="noopener">
+                    <span class="cl-icon">{% include icon-github.svg %}</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="/updates" class="connect-link">
+                    <span class="cl-icon">{% include icon-rss.svg %}</span>
+                    <span>Updates</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

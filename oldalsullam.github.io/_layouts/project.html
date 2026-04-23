@@ -1,0 +1,105 @@
+---
+layout: default
+---
+
+<div class="docs-wrap">
+
+    {% include sidebar-left.html %}
+
+    <main class="docs-main">
+
+        <!-- Breadcrumb + header -->
+        <div class="doc-hd">
+            <nav class="doc-crumb">
+                <a href="{{ '/' | relative_url }}">AL Sullam</a>
+                <span class="sep">/</span>
+                <a href="{{ '/#projects' | relative_url }}">Projects</a>
+                <span class="sep">/</span>
+                {{ page.title }}
+            </nav>
+
+            <div class="doc-title">{{ page.title }}</div>
+            <p class="doc-lead">{{ page.description }}</p>
+
+            <dl class="doc-meta">
+                {% if page.lang %}
+                <div class="dm-item"><dt>Language</dt><dd class="ac">{{ page.lang }}</dd></div>
+                {% endif %}
+                {% if page.category %}
+                <div class="dm-item"><dt>Category</dt><dd>{{ page.category }}</dd></div>
+                {% endif %}
+                {% if page.started %}
+                <div class="dm-item"><dt>Started</dt><dd>{{ page.started }}</dd></div>
+                {% endif %}
+                {% if page.version %}
+                <div class="dm-item"><dt>Version</dt><dd>{{ page.version }}</dd></div>
+                {% endif %}
+                {% if page.lines_of_code %}
+                <div class="dm-item"><dt>Lines</dt><dd>{{ page.lines_of_code }}</dd></div>
+                {% endif %}
+                {% if page.tests %}
+                <div class="dm-item"><dt>Tests</dt><dd class="ac">{{ page.tests }}</dd></div>
+                {% endif %}
+            </dl>
+
+            {% if page.tags %}
+            <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:14px">
+                {% for tag in page.tags limit:5 %}
+                <a href="{{ '/tags/#' | append: tag | slugify | relative_url }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Chapter list (if chapters exist for this project) -->
+        {% assign chapters = site.chapters | where: "project", page.slug | sort: "order" %}
+        {% if chapters.size > 0 %}
+        <div style="margin-bottom:32px">
+            <h4 style="margin-bottom:14px">Documentation Chapters</h4>
+            {% assign versions = chapters | map: "version" | uniq | compact %}
+            {% if versions.size > 0 %}
+            {% for ver in versions %}
+            <div style="margin-bottom:20px">
+                <div style="font-family:var(--font-mono);font-size:.65rem;color:var(--tx-3);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--bo-0)">{{ ver }}</div>
+                {% assign ver_chaps = chapters | where: "version", ver %}
+                {% for chap in ver_chaps %}
+                <a href="{{ chap.url | relative_url }}" style="display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid var(--bo-0);text-decoration:none;transition:background .15s" class="chap-entry">
+                    <span style="font-family:var(--font-mono);font-size:.62rem;color:var(--tx-3);min-width:24px">{{ chap.order | prepend: '00' | slice: -2, 2 }}</span>
+                    <span style="font-size:.92rem;font-weight:500;color:var(--tx-1)">{{ chap.title }}</span>
+                    {% if chap.summary %}<span style="font-size:.82rem;color:var(--tx-3);margin-left:auto">{{ chap.summary | truncate: 50 }}</span>{% endif %}
+                </a>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            {% else %}
+            {% for chap in chapters %}
+            <a href="{{ chap.url | relative_url }}" style="display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid var(--bo-0);text-decoration:none" class="chap-entry">
+                <span style="font-family:var(--font-mono);font-size:.62rem;color:var(--tx-3);min-width:24px">{{ chap.order | prepend: '00' | slice: -2, 2 }}</span>
+                <span style="font-size:.92rem;font-weight:500;color:var(--tx-1)">{{ chap.title }}</span>
+            </a>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Main project content (the markdown body) -->
+        <div class="doc-body">
+            {{ content }}
+        </div>
+
+        <!-- Next chapter CTA -->
+        {% assign first_chap = chapters | first %}
+        {% if first_chap %}
+        <div class="chap-nav" style="justify-content:flex-end">
+            <a href="{{ first_chap.url | relative_url }}" class="chap-nav-btn next">
+                <span class="chap-nav-dir">Start reading</span>
+                <span class="chap-nav-title">{{ first_chap.title }} →</span>
+            </a>
+        </div>
+        {% endif %}
+
+    </main>
+
+    {% include sidebar-right.html %}
+
+</div>

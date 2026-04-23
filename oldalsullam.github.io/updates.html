@@ -1,0 +1,42 @@
+---
+layout: default
+title: "Updates"
+slug: updates
+description: "Latest news, releases, and developments from AL Sullam."
+---
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <div class="container">
+        <div class="slabel">News & Updates</div>
+        <h1>What's New</h1>
+        <p class="page-desc">Latest news, releases, and developments from AL Sullam.</p>
+    </div>
+</section>
+
+<!-- UPDATES LIST -->
+<section class="updates-section">
+    <div class="container">
+        <div class="updates-list">
+            {% for post in site.posts %}
+            <article class="update-item">
+                <div class="update-meta">
+                    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
+                    {% if post.category %}<span class="update-cat">{{ post.category }}</span>{% endif %}
+                </div>
+                <h2 class="update-title">
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </h2>
+                <p class="update-excerpt">{{ post.description | default: post.excerpt | strip_html | truncate: 200 }}</p>
+                <a href="{{ post.url | relative_url }}" class="update-link">Read more &#8594;</a>
+            </article>
+            {% endfor %}
+        </div>
+
+        {% if site.posts.size == 0 %}
+        <div class="empty-state">
+            <p>No updates yet. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
